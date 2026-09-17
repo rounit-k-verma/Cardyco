@@ -1,0 +1,208 @@
+import { ECGRecording } from '../types';
+
+// Helper to format dynamic dates relative to today's current date
+export const getRelativeDate = (daysAgo: number): string => {
+  const d = new Date();
+  d.setDate(d.getDate() - daysAgo);
+  const options: Intl.DateTimeFormatOptions = { month: 'short', day: 'numeric', year: 'numeric' };
+  const formatted = d.toLocaleDateString('en-US', options);
+  if (daysAgo === 0) return `Today, ${formatted}`;
+  if (daysAgo === 1) return `Yesterday, ${formatted}`;
+  return formatted;
+};
+
+export const getCurrentMonthYear = (): string => {
+  const d = new Date();
+  return d.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+};
+
+export const initialRecordings: ECGRecording[] = [
+  {
+    id: 'rec-tachy-current',
+    date: getRelativeDate(0),
+    time: '08:42 AM',
+    bpm: 148,
+    bpmType: 'PEAK',
+    lead: 'Lead II (Ambulatory)',
+    duration: '32s',
+    status: 'flagged',
+    statusLabel: 'TACHYCARDIA ALERT',
+    rhythmDetail: 'PR: 118ms • QRS: 138ms',
+    metaNote: 'Automated SOS Dispatched to vivekchaurasiyax11@gmail.com',
+    metaIcon: 'crisis_alert',
+    waveformVariant: 'tachycardia',
+    doctorReviewed: false,
+    reviewer: 'Dr. Rajesh Sharma, MD, DM',
+    pathData:
+      'M0,20 L15,20 L18,17 L21,20 L28,20 L30,4 L33,36 L36,16 L38,20 L44,14 L50,20 L65,20 L68,17 L71,20 L77,4 L80,36 L83,16 L85,20 L91,14 L97,20 L112,20 L115,17 L118,20 L124,4 L127,36 L130,16 L132,20 L138,14 L144,20 L160,20 L163,17 L166,20 L172,4 L175,36 L178,16 L180,20 L186,14 L192,20 L208,20 L211,17 L214,20 L220,4 L223,36 L226,16 L228,20 L234,14 L240,20 L256,20 L259,17 L262,20 L268,4 L271,36 L274,16 L276,20 L282,14 L288,20 L305,20 L308,17 L311,20 L317,4 L320,20',
+  },
+  {
+    id: 'rec-sinus-today-am',
+    date: getRelativeDate(0),
+    time: '06:15 AM',
+    bpm: 70,
+    bpmType: 'REST',
+    lead: 'Morning Holter Baseline',
+    duration: '45s',
+    status: 'normal',
+    statusLabel: 'NORMAL SINUS RHYTHM',
+    rhythmDetail: 'PR: 132ms • QRS: 84ms',
+    metaNote: 'Recorded via CARDYCO Patch V3',
+    metaIcon: 'schedule',
+    waveformVariant: 'morning-baseline',
+    doctorReviewed: false,
+    pathData:
+      'M0,20 L30,20 L34,16 L38,20 L48,20 L51,4 L55,36 L59,16 L62,20 L70,14 L78,20 L135,20 L139,16 L143,20 L153,20 L156,4 L160,36 L164,16 L167,20 L175,14 L183,20 L240,20 L244,16 L248,20 L258,20 L261,4 L265,36 L269,16 L272,20 L280,14 L288,20 L320,20',
+  },
+  {
+    id: 'rec-sinus-yesterday',
+    date: getRelativeDate(1),
+    time: '10:15 PM',
+    bpm: 68,
+    bpmType: 'REST',
+    lead: 'Nocturnal Resting Holter',
+    duration: '60s',
+    status: 'normal',
+    statusLabel: 'NORMAL SINUS RHYTHM',
+    rhythmDetail: 'QRS: 86ms • QTc: 408ms',
+    metaNote: 'Reviewed by Dr. Priya Nair',
+    metaIcon: 'stethoscope',
+    waveformVariant: 'resting-sinus',
+    doctorReviewed: true,
+    reviewer: 'Dr. Priya Nair, MD (AIIMS)',
+    pathData:
+      'M0,20 L30,20 L34,16 L38,20 L48,20 L51,3 L55,37 L59,17 L62,20 L70,14 L78,20 L135,20 L139,16 L143,20 L153,20 L156,3 L160,37 L164,17 L167,20 L175,14 L183,20 L240,20 L244,16 L248,20 L258,20 L261,3 L265,37 L269,17 L272,20 L280,14 L288,20 L320,20',
+  },
+  {
+    id: 'rec-session-day2',
+    date: getRelativeDate(2),
+    time: '02:30 PM',
+    bpm: 76,
+    bpmType: 'AVG',
+    lead: 'Post-Walk Stress Check',
+    duration: '60s',
+    status: 'normal',
+    statusLabel: 'NORMAL',
+    rhythmDetail: 'QTc: 412ms • PR: 124ms',
+    metaNote: 'Reviewed by Dr. Rajesh Sharma',
+    metaIcon: 'stethoscope',
+    waveformVariant: 'normal-walk',
+    doctorReviewed: true,
+    reviewer: 'Dr. Rajesh Sharma, MD, DM (Apollo)',
+    pathData:
+      'M0,20 L25,20 L29,16 L33,20 L42,20 L45,3 L49,37 L53,17 L56,20 L64,15 L72,20 L120,20 L124,16 L128,20 L137,20 L140,3 L144,37 L148,17 L151,20 L159,15 L167,20 L215,20 L219,16 L223,20 L232,20 L235,3 L239,37 L243,17 L246,20 L254,15 L262,20 L320,20',
+  },
+  {
+    id: 'rec-session-day3',
+    date: getRelativeDate(3),
+    time: '07:45 AM',
+    bpm: 72,
+    bpmType: 'AVG',
+    lead: 'Morning Vitals Check',
+    duration: '30s',
+    status: 'normal',
+    statusLabel: 'NORMAL',
+    rhythmDetail: 'ST Seg: Isoelectric (0.0mV)',
+    metaNote: 'Signal Quality: 99% (NABL Lab)',
+    metaIcon: 'verified_user',
+    waveformVariant: 'morning-baseline',
+    doctorReviewed: false,
+    pathData:
+      'M0,20 L30,20 L34,16 L38,20 L48,20 L51,4 L55,36 L59,16 L62,20 L70,14 L78,20 L135,20 L139,16 L143,20 L153,20 L156,4 L160,36 L164,16 L167,20 L175,14 L183,20 L240,20 L244,16 L248,20 L258,20 L261,4 L265,36 L269,16 L272,20 L280,14 L288,20 L320,20',
+  },
+  {
+    id: 'rec-session-day4',
+    date: getRelativeDate(4),
+    time: '04:10 PM',
+    bpm: 82,
+    bpmType: 'AVG',
+    lead: 'Afternoon Telemetry Strip',
+    duration: '45s',
+    status: 'normal',
+    statusLabel: 'NORMAL',
+    rhythmDetail: 'PR: 120ms • QRS: 88ms',
+    metaNote: 'Reviewed by Dr. Vikram Malhotra',
+    metaIcon: 'stethoscope',
+    waveformVariant: 'normal-walk',
+    doctorReviewed: true,
+    reviewer: 'Dr. Vikram Malhotra, MD (Fortis)',
+    pathData:
+      'M0,20 L25,20 L29,16 L33,20 L42,20 L45,3 L49,37 L53,17 L56,20 L64,15 L72,20 L120,20 L124,16 L128,20 L137,20 L140,3 L144,37 L148,17 L151,20 L159,15 L167,20 L215,20 L219,16 L223,20 L232,20 L235,3 L239,37 L243,17 L246,20 L254,15 L262,20 L320,20',
+  },
+  {
+    id: 'rec-session-day5',
+    date: getRelativeDate(5),
+    time: '09:20 PM',
+    bpm: 64,
+    bpmType: 'REST',
+    lead: 'Evening Post-Medication',
+    duration: '30s',
+    status: 'normal',
+    statusLabel: 'NORMAL',
+    rhythmDetail: 'QRS: 84ms • QTc: 405ms',
+    metaNote: 'Reviewed by Dr. Rajesh Sharma',
+    metaIcon: 'stethoscope',
+    waveformVariant: 'resting-sinus',
+    doctorReviewed: true,
+    reviewer: 'Dr. Rajesh Sharma, MD, DM (Apollo)',
+    pathData:
+      'M0,20 L30,20 L34,16 L38,20 L48,20 L51,3 L55,37 L59,17 L62,20 L70,14 L78,20 L135,20 L139,16 L143,20 L153,20 L156,3 L160,37 L164,17 L167,20 L175,14 L183,20 L240,20 L244,16 L248,20 L258,20 L261,3 L265,37 L269,17 L272,20 L280,14 L288,20 L320,20',
+  },
+  {
+    id: 'rec-session-day7',
+    date: getRelativeDate(7),
+    time: '11:05 AM',
+    bpm: 78,
+    bpmType: 'AVG',
+    lead: 'Cardio Telemetry Sync',
+    duration: '30s',
+    status: 'normal',
+    statusLabel: 'NORMAL',
+    rhythmDetail: 'PR: 126ms • QRS: 86ms',
+    metaNote: 'AIIMS Ambulatory Laboratory Sync',
+    metaIcon: 'local_hospital',
+    waveformVariant: 'normal-walk',
+    doctorReviewed: true,
+    reviewer: 'Dr. Ananya Sen, MD (AIIMS)',
+    pathData:
+      'M0,20 L25,20 L29,16 L33,20 L42,20 L45,3 L49,37 L53,17 L56,20 L64,15 L72,20 L120,20 L124,16 L128,20 L137,20 L140,3 L144,37 L148,17 L151,20 L159,15 L167,20 L215,20 L219,16 L223,20 L232,20 L235,3 L239,37 L243,17 L246,20 L254,15 L262,20 L320,20',
+  },
+  {
+    id: 'rec-session-day10',
+    date: getRelativeDate(10),
+    time: '03:40 AM',
+    bpm: 58,
+    bpmType: 'REST',
+    lead: 'Nocturnal Sleep Holter',
+    duration: '60s',
+    status: 'normal',
+    statusLabel: 'PHYSIOLOGIC SLEEP BRADYCARDIA',
+    rhythmDetail: 'PR: 136ms • QTc: 418ms',
+    metaNote: 'Reviewed by Dr. Priya Nair',
+    metaIcon: 'stethoscope',
+    waveformVariant: 'resting-sinus',
+    doctorReviewed: true,
+    reviewer: 'Dr. Priya Nair, MD (AIIMS)',
+    pathData:
+      'M0,20 L30,20 L34,16 L38,20 L48,20 L51,3 L55,37 L59,17 L62,20 L70,14 L78,20 L135,20 L139,16 L143,20 L153,20 L156,3 L160,37 L164,17 L167,20 L175,14 L183,20 L240,20 L244,16 L248,20 L258,20 L261,3 L265,37 L269,17 L272,20 L280,14 L288,20 L320,20',
+  },
+  {
+    id: 'rec-session-day14',
+    date: getRelativeDate(14),
+    time: '09:00 AM',
+    bpm: 73,
+    bpmType: 'AVG',
+    lead: 'Holter Baseline Calibration',
+    duration: '60s',
+    status: 'normal',
+    statusLabel: 'NORMAL SINUS RHYTHM',
+    rhythmDetail: 'QRS: 85ms • QTc: 410ms',
+    metaNote: 'Sensor Calibration by AIIMS Cardiac Tech',
+    metaIcon: 'verified_user',
+    waveformVariant: 'morning-baseline',
+    doctorReviewed: true,
+    reviewer: 'Dr. Rajesh Sharma, MD, DM (Apollo)',
+    pathData:
+      'M0,20 L30,20 L34,16 L38,20 L48,20 L51,4 L55,36 L59,16 L62,20 L70,14 L78,20 L135,20 L139,16 L143,20 L153,20 L156,4 L160,36 L164,16 L167,20 L175,14 L183,20 L240,20 L244,16 L248,20 L258,20 L261,4 L265,36 L269,16 L272,20 L280,14 L288,20 L320,20',
+  },
+];

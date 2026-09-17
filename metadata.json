@@ -1,0 +1,6 @@
+{
+  "name": "CARDYCO",
+  "description": "Clinical precision ECG telemetry monitor with live arrhythmia detection, Holter recording history, instant Indian hospital relay, emergency contact SOS, and AI cardiac assistant.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
